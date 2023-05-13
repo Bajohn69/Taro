@@ -1,7 +1,12 @@
 import './App.css'
+import Taro from './components/Taro'
 
 function App() {
-  return <>安安</>
+  return (
+    <>
+      <Taro />
+    </>
+  )
 }
 
 export default App
