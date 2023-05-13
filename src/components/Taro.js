@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
+import 'animate.css'
 
 import {
   taro_body,
@@ -15,16 +16,31 @@ import {
   character04,
   character05,
   character06,
+  egg,
+  eggRight,
+  eggLeft,
 } from '../images'
 const Taro = () => {
-  let defaultTaro = taro_body
-
-  const [taroState, setTaroState] = useState(defaultTaro)
+  const [taroState, setTaroState] = useState(taro_body)
+  const [snipper, setSnipper] = useState(taro_spinner)
+  const [butt, setButt] = useState(taro_butt)
+  const [spinAnimation, setSpinAnimation] = useState('none')
+  const [eggAnimation, setEggAnimation] = useState('none')
+  const [eggDiplay, setEggDiplay] = useState('none')
 
   const pants = () => {
-    console.log(taroState)
-    defaultTaro = defaultTaro === taro_body ? taro_body2 : taro_body
-    setTaroState(defaultTaro)
+    taroState === taro_body ? setTaroState(taro_body2) : setTaroState(taro_body)
+    taroState === taro_body ? setButt() : setButt(taro_butt)
+    taroState === taro_body ? setSnipper() : setSnipper(taro_spinner)
+    taroState === taro_body ? setEggDiplay('none') : setEggDiplay('block')
+  }
+
+  const spin = () => {
+    setSpinAnimation('rotate 0.8s forwards')
+    setEggAnimation('eggAnimation 1s forwards')
+    setTimeout(() => {
+      setSpinAnimation('none')
+    }, 800)
   }
 
   return (
@@ -36,11 +52,30 @@ const Taro = () => {
           }}
           className="m-5"
         >
-          Click
+          穿還是不穿?
         </Button>
 
         <Row>
-          <Col className="d-flex justify-content-center flex-column">
+          <Col className="d-flex justify-content-center flex-column position-relative">
+            <div
+              className="snipperWrap position-absolute"
+              onClick={() => {
+                spin()
+              }}
+              style={{ animation: `${spinAnimation}` }}
+            >
+              <img src={snipper} alt="" />
+            </div>
+
+            <div className="buttWrap position-absolute">
+              <img src={butt} alt="" />
+            </div>
+            <div
+              className="eggWrap position-absolute"
+              style={{ animation: `${eggAnimation}`, display: `${eggDiplay}` }}
+            >
+              <img className="w-100" src={egg} alt="" />
+            </div>
             <div className="taroWrap">
               <img src={taroState} alt="" />
             </div>

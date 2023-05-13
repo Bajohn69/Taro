@@ -1,3 +1,59 @@
+.container {
+  min-height: 100vh;
+}
+
+.snipperWrap {
+  z-index: 10;
+  top: 42%;
+  right: 16%;
+  animation: none;
+  /* animation: rotate 0.8s forwards; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(70deg);
+  }
+  40% {
+    transform: rotate(150deg);
+  }
+  60% {
+    transform: rotate(220deg);
+  }
+  80% {
+    transform: rotate(280deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.buttWrap {
+  z-index: 5;
+}
+
+.eggWrap {
+  z-index: 0;
+
+  top: 65%;
+  right: 10%;
+  animation: none;
+  display: none;
+  /* animation: eggAnimation 1s forwards; */
+}
+
+@keyframes eggAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(300%);
+  }
+}
+
 .App {
   text-align: center;
 }
@@ -35,8 +91,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.container {
-  min-height: 100vh;
 }
