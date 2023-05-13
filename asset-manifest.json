@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/taro/static/css/main.073c9b0a.css",
-    "main.js": "/taro/static/js/main.0d5d00a5.js",
-    "index.html": "/taro/index.html",
-    "main.073c9b0a.css.map": "/taro/static/css/main.073c9b0a.css.map",
-    "main.0d5d00a5.js.map": "/taro/static/js/main.0d5d00a5.js.map"
+    "main.css": "/Taro/static/css/main.073c9b0a.css",
+    "main.js": "/Taro/static/js/main.0d5d00a5.js",
+    "index.html": "/Taro/index.html",
+    "main.073c9b0a.css.map": "/Taro/static/css/main.073c9b0a.css.map",
+    "main.0d5d00a5.js.map": "/Taro/static/js/main.0d5d00a5.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
