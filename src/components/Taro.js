@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
-// import 'animate.css'
+import 'animate.css'
 
 import {
   taro_body,
@@ -27,10 +27,12 @@ const Taro = () => {
   const [butt, setButt] = useState(taro_butt)
   const [spinAnimation, setSpinAnimation] = useState('none')
   const [eggAnimation, setEggAnimation] = useState('none')
+  const [eggShake, setEggShake] = useState('')
   const [eggDisplay, setEggDisplay] = useState('none')
   const [eggLeftAni, setEggLeftAni] = useState('none')
   const [eggRightAni, setEggRightAni] = useState('none')
   const [bigEggDisplay, setbigEggDisplay] = useState('none')
+  const [next, setNext] = useState(0)
 
   const pants = () => {
     taroState === taro_body ? setTaroState(taro_body2) : setTaroState(taro_body)
@@ -43,17 +45,43 @@ const Taro = () => {
     setSpinAnimation('rotate 0.8s forwards')
     setEggDisplay('block')
     setEggAnimation('eggAnimation 1s forwards')
+    setTimeout(() => {
+      setEggShake('animate__bounce')
+    }, 1000)
   }
-  // TODO: 蛋ㄉzindex
+
   const open = () => {
     setSpinAnimation('none')
     setEggLeftAni('left 1s forwards')
     setEggRightAni('right 1s forwards')
     setbigEggDisplay('flex')
+    setEggShake('')
+    setTimeout(() => {
+      setNext(1)
+    }, 1000)
+  }
+
+  const reset = () => {
+    setEggLeftAni('none')
+    setEggRightAni('none')
+    setbigEggDisplay('none')
+    setEggDisplay('none')
+    setEggAnimation('none')
+    setNext(0)
   }
 
   return (
     <>
+      <Button
+        className="backBtn position-absolute"
+        style={{ opacity: `${next}` }}
+        onClick={() => {
+          reset()
+        }}
+      >
+        轉下一顆
+      </Button>
+
       <Container
         className="position-absolute align-items-center justify-content-center bigEgg"
         style={{ display: `${bigEggDisplay}` }}
@@ -114,7 +142,11 @@ const Taro = () => {
               }}
               style={{ animation: `${eggAnimation}`, display: `${eggDisplay}` }}
             >
-              <img className="w-100" src={egg} alt="" />
+              <img
+                className={`w-100 animate__animated ${eggShake} animate__infinite`}
+                src={egg}
+                alt=""
+              />
             </div>
             <div className="taroWrap">
               <img src={taroState} alt="" />

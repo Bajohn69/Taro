@@ -114,6 +114,13 @@
   transform: translate(-50%, -50%);
 }
 
+.backBtn {
+  z-index: 20;
+  right: 10%;
+  bottom: 10%;
+  transition: 1s;
+}
+
 /* .App {
   text-align: center;
 }
