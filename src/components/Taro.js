@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
-import 'animate.css'
+// import 'animate.css'
 
 import {
   taro_body,
@@ -19,6 +19,7 @@ import {
   egg,
   eggRight,
   eggLeft,
+  birthday,
 } from '../images'
 const Taro = () => {
   const [taroState, setTaroState] = useState(taro_body)
@@ -26,25 +27,61 @@ const Taro = () => {
   const [butt, setButt] = useState(taro_butt)
   const [spinAnimation, setSpinAnimation] = useState('none')
   const [eggAnimation, setEggAnimation] = useState('none')
-  const [eggDiplay, setEggDiplay] = useState('none')
+  const [eggDisplay, setEggDisplay] = useState('none')
+  const [eggLeftAni, setEggLeftAni] = useState('none')
+  const [eggRightAni, setEggRightAni] = useState('none')
+  const [bigEggDisplay, setbigEggDisplay] = useState('none')
 
   const pants = () => {
     taroState === taro_body ? setTaroState(taro_body2) : setTaroState(taro_body)
     taroState === taro_body ? setButt() : setButt(taro_butt)
     taroState === taro_body ? setSnipper() : setSnipper(taro_spinner)
-    taroState === taro_body ? setEggDiplay('none') : setEggDiplay('block')
+    taroState === taro_body ? setEggDisplay('none') : setEggDisplay('block')
   }
 
   const spin = () => {
     setSpinAnimation('rotate 0.8s forwards')
+    setEggDisplay('block')
     setEggAnimation('eggAnimation 1s forwards')
-    setTimeout(() => {
-      setSpinAnimation('none')
-    }, 800)
+  }
+  // TODO: 蛋ㄉzindex
+  const open = () => {
+    setSpinAnimation('none')
+    setEggLeftAni('left 1s forwards')
+    setEggRightAni('right 1s forwards')
+    setbigEggDisplay('flex')
   }
 
   return (
     <>
+      <Container
+        className="position-absolute align-items-center justify-content-center bigEgg"
+        style={{ display: `${bigEggDisplay}` }}
+      >
+        <div className="eggLeftWrap" style={{ animation: `${eggLeftAni}` }}>
+          <img className="w-100" src={eggLeft} alt="" />
+        </div>
+        <div className="eggRightWrap" style={{ animation: `${eggRightAni}` }}>
+          <img className="w-100" src={eggRight} alt="" />
+        </div>
+      </Container>
+      <Container
+        className="position-absolute align-items-center justify-content-center card"
+        style={{ display: `${bigEggDisplay}` }}
+      >
+        <div className="cardWarp ">
+          <img className="w-100" src={birthday} alt="" />
+        </div>
+      </Container>
+
+      {/* <Row className="flex-nowrap justify-content-center  position-absolute bigEgg">
+        <div className="eggLeftWrap"></div>
+          <img className="w-100" src={eggLeft} alt="" />
+        </div>
+        <div className="eggRightWrap">
+          <img className="w-100" src={eggRight} alt="" />
+        </div>
+      </Row> */}
       <Container className="d-flex justify-content-center align-items-center flex-column">
         <Button
           onClick={() => {
@@ -72,7 +109,10 @@ const Taro = () => {
             </div>
             <div
               className="eggWrap position-absolute"
-              style={{ animation: `${eggAnimation}`, display: `${eggDiplay}` }}
+              onClick={() => {
+                open()
+              }}
+              style={{ animation: `${eggAnimation}`, display: `${eggDisplay}` }}
             >
               <img className="w-100" src={egg} alt="" />
             </div>

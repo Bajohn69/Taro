@@ -12,6 +12,7 @@ import character06 from './character06.png'
 import egg from './egg.png'
 import eggLeft from './eggLeft.png'
 import eggRight from './eggRight.png'
+import birthday from './birthday.jpg'
 
 export {
   taro_body,
@@ -27,4 +28,5 @@ export {
   egg,
   eggRight,
   eggLeft,
+  birthday,
 }
