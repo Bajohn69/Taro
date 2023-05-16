@@ -50,20 +50,25 @@
   right: 10%;
   animation: none;
   display: none;
+  width: 60px;
+  height: 60px;
   /* animation: eggAnimation 1s forwards; */
 }
 
 @keyframes eggAnimation {
   0% {
-    transform: translateY(0);
+    transform: translate(0, 0);
+  }
+  40% {
+    transform: translate(0, 250%);
   }
   100% {
-    transform: translateY(300%);
+    transform: translate(200%, 250%) rotate(360deg);
   }
 }
 
 .bigEgg {
-  z-index: 11;
+  z-index: 16;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -102,8 +107,8 @@
   }
 }
 
-.card {
-  z-index: 0;
+.hbcard {
+  z-index: 15;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

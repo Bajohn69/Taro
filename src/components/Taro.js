@@ -66,7 +66,7 @@ const Taro = () => {
         </div>
       </Container>
       <Container
-        className="position-absolute align-items-center justify-content-center card"
+        className="position-absolute align-items-center justify-content-center hbcard"
         style={{ display: `${bigEggDisplay}` }}
       >
         <div className="cardWarp ">
