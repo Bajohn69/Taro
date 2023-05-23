@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -16,19 +16,98 @@ import {
   character04,
   character05,
   character06,
+  character07,
+  character08,
+  character09,
+  character10,
+  character11,
   egg,
   eggRight,
   eggLeft,
   birthday,
+  card01_01,
+  card01_02,
+  card01_03,
+  card01_04,
+  card02_01,
+  card02_02,
+  card02_03,
+  card02_04,
+  card03_01,
+  card03_02,
+  card03_03,
+  card03_04,
+  card04_01,
+  card04_02,
+  card04_03,
+  card04_04,
+  card05_01,
+  card05_02,
+  card05_03,
+  card05_04,
+  card06_01,
+  card06_02,
+  card06_03,
+  card06_04,
+  card07_01,
+  card07_02,
+  card07_03,
+  card07_04,
+  card08_01,
+  card08_02,
+  card08_03,
+  card08_04,
+  card09_01,
+  card09_02,
+  card09_03,
+  card09_04,
+  card10_01,
+  card10_02,
+  card10_03,
+  card10_04,
+  card11_01,
+  card11_02,
+  card11_03,
+  card11_04,
+  card12_01,
+  card12_02,
+  card12_03,
+  card12_04,
+  card13_01,
+  card13_02,
+  card13_03,
+  card13_04,
+  card14_01,
+  card14_02,
+  card14_03,
+  card14_04,
+  card15_01,
+  card15_02,
+  card15_03,
+  card15_04,
 } from '../images'
 
-import { spin01, spin02, spin03, audio01, audio05 } from '../audio'
+import {
+  spin01,
+  spin02,
+  spin03,
+  spin04,
+  spin05,
+  characterAudio01,
+  characterAudio03,
+  characterAudio05,
+  characterAudio06,
+  characterAudio07,
+  characterAudio08,
+  characterAudio09,
+  characterAudio10,
+  characterAudio11,
+} from '../audio'
 
 const Taro = () => {
   const [started, setStarted] = useState(false)
-  const [taroState, setTaroState] = useState(taro_body)
-  const [snipper, setSnipper] = useState(taro_spinner)
-  const [butt, setButt] = useState(taro_butt)
+  const [taro, setTaro] = useState(false)
+
   const [spinAnimation, setSpinAnimation] = useState('none')
   const [eggAnimation, setEggAnimation] = useState('none')
   const [eggShake, setEggShake] = useState('')
@@ -38,31 +117,127 @@ const Taro = () => {
   const [bigEggDisplay, setbigEggDisplay] = useState('none')
   const [next, setNext] = useState(0)
 
-  // const randomSpinSf = () => {
-  //   return 'spin0' + Math.ceil(Math.random() * 3) + 'sf'
-  // }
+  // let [currentCard, setCurrentCard] = useState(1)
+
   const randomSpinSf = () => {
-    return Math.floor(Math.random() * 3)
+    return Math.floor(Math.random() * 5)
   }
 
   const spin01sf = new Audio(spin01)
   const spin02sf = new Audio(spin02)
   const spin03sf = new Audio(spin03)
-  // const randomSpin = randomSpinSf()
-  const sfArr = [spin01sf, spin02sf, spin03sf]
+  const spin04sf = new Audio(spin04)
+  const spin05sf = new Audio(spin05)
+  const sfArr = [spin01sf, spin02sf, spin03sf, spin04sf, spin05sf]
   const spinSf = () => {
     sfArr[randomSpinSf()].play()
-    // console.log(sfArr[randomSpinSf()])
   }
 
   const pants = () => {
-    taroState === taro_body ? setTaroState(taro_body2) : setTaroState(taro_body)
-    taroState === taro_body ? setButt() : setButt(taro_butt)
-    taroState === taro_body ? setSnipper() : setSnipper(taro_spinner)
-    taroState === taro_body ? setEggDisplay('none') : setEggDisplay('block')
+    taro ? setTaro(false) : setTaro(true)
   }
+  // const randomCard = () => {
+  //   return Math.floor(Math.random() * 2)
+  // }
+
+  // console.log(cardArr[0])
+  // const currentCard = () => {
+  //   return cardArr[randomCard()], eggArr[randomCard()]
+  //   // console.log(cardArr[0])
+  // }
+  const eggArr = [
+    card01_01,
+    card02_01,
+    card03_01,
+    card04_01,
+    card05_01,
+    card06_01,
+    card07_01,
+    card08_01,
+    card09_01,
+    card10_01,
+    card11_01,
+    card12_01,
+    card13_01,
+    card14_01,
+    card15_01,
+  ]
+  const eggLeftArr = [
+    card01_02,
+    card02_02,
+    card03_02,
+    card04_02,
+    card05_02,
+    card06_02,
+    card07_02,
+    card08_02,
+    card09_02,
+    card10_02,
+    card11_02,
+    card12_02,
+    card13_02,
+    card14_02,
+    card15_02,
+  ]
+  const eggRightArr = [
+    card01_03,
+    card02_03,
+    card03_03,
+    card04_03,
+    card05_03,
+    card06_03,
+    card07_03,
+    card08_03,
+    card09_03,
+    card10_03,
+    card11_03,
+    card12_03,
+    card13_03,
+    card14_03,
+    card15_03,
+  ]
+  const cardArr = [
+    card01_04,
+    card02_04,
+    card03_04,
+    card04_04,
+    card05_04,
+    card06_04,
+    card07_04,
+    card08_04,
+    card09_04,
+    card10_04,
+    card11_04,
+    card12_04,
+    card13_04,
+    card14_04,
+    card15_04,
+  ]
+  const [numbers, setNumbers] = useState([])
+  const [clicks, setClicks] = useState(0)
+  const [randomNumber, setRandomNumber] = useState(0)
+
+  // 在元件掛載時或者每次點擊後執行
+  useEffect(() => {
+    if (numbers.length === 0 || clicks >= eggArr.length) {
+      setNumbers(
+        Array.from({ length: eggArr.length }, (_, i) => i).sort(
+          () => Math.random() - 0.5
+        )
+      )
+    }
+  }, [clicks])
 
   const spin = () => {
+    setRandomNumber(numbers[clicks] ?? 0)
+
+    if (clicks >= eggArr.length) {
+      setClicks(0)
+    } else {
+      setClicks(clicks + 1)
+    }
+    console.log('QQQQ', numbers, clicks, randomNumber)
+
     setSpinAnimation('rotate 0.8s forwards')
     setEggDisplay('block')
     setEggAnimation('eggAnimation 1s forwards')
@@ -80,15 +255,20 @@ const Taro = () => {
     setTimeout(() => {
       setNext(1)
     }, 1000)
+    console.log('open', numbers, clicks, randomNumber)
   }
 
-  const reset = () => {
+  const nextCard = () => {
     setEggLeftAni('none')
     setEggRightAni('none')
     setbigEggDisplay('none')
     setEggDisplay('none')
     setEggAnimation('none')
     setNext(0)
+    console.log('next', numbers, clicks, randomNumber)
+
+    // currentCard === 5 ? setCurrentCard(1) : setCurrentCard(currentCard + 1)
+    // console.log(currentCard)
   }
 
   return (
@@ -113,7 +293,7 @@ const Taro = () => {
             className="backBtn position-absolute"
             style={{ opacity: `${next}` }}
             onClick={() => {
-              reset()
+              nextCard()
             }}
           >
             轉下一顆
@@ -124,13 +304,13 @@ const Taro = () => {
             style={{ display: `${bigEggDisplay}` }}
           >
             <div className="eggLeftWrap" style={{ animation: `${eggLeftAni}` }}>
-              <img className="w-100" src={eggLeft} alt="" />
+              <img className="w-100" src={eggLeftArr[randomNumber]} alt="" />
             </div>
             <div
               className="eggRightWrap"
               style={{ animation: `${eggRightAni}` }}
             >
-              <img className="w-100" src={eggRight} alt="" />
+              <img className="w-100" src={eggRightArr[randomNumber]} alt="" />
             </div>
           </Container>
           <Container
@@ -138,7 +318,8 @@ const Taro = () => {
             style={{ display: `${bigEggDisplay}` }}
           >
             <div className="cardWarp ">
-              <img className="w-100" src={birthday} alt="" />
+              {/* TODO: */}
+              <img className="w-100" src={cardArr[randomNumber]} alt="" />
             </div>
           </Container>
 
@@ -155,7 +336,7 @@ const Taro = () => {
             <Row>
               <Col className="d-flex justify-content-center flex-column position-relative">
                 <div
-                  className="snipperWrap position-absolute"
+                  className="spinnerWrap position-absolute"
                   onMouseOver={() => {
                     spinSf()
                   }}
@@ -164,11 +345,11 @@ const Taro = () => {
                   }}
                   style={{ animation: `${spinAnimation}` }}
                 >
-                  <img src={snipper} alt="" />
+                  <img src={taro ? '' : taro_spinner} alt="" />
                 </div>
 
                 <div className="buttWrap position-absolute">
-                  <img src={butt} alt="" />
+                  <img src={taro ? '' : taro_butt} alt="" />
                 </div>
                 <div
                   className="eggWrap position-absolute"
@@ -182,12 +363,12 @@ const Taro = () => {
                 >
                   <img
                     className={`w-100 animate__animated ${eggShake} animate__infinite`}
-                    src={egg}
+                    src={eggArr[randomNumber]}
                     alt=""
                   />
                 </div>
                 <div className="taroWrap">
-                  <img src={taroState} alt="" />
+                  <img src={taro ? taro_body2 : taro_body} alt="" />
                 </div>
               </Col>
             </Row>
