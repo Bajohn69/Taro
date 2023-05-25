@@ -5,6 +5,12 @@
   /* outline: #6200ff 1px solid; */
 }
 
+.outside {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
 .container {
   min-height: 100vh;
 }
@@ -119,6 +125,25 @@
   right: 10%;
   bottom: 10%;
   transition: 1s;
+}
+
+.character01,
+.character02,
+.character11 {
+  top: -100%;
+  left: 50%;
+  z-index: 15;
+  transform: translateX(-50%);
+  /* animation: down 2s ease-in-out forwards; */
+}
+
+@keyframes down {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 100%;
+  }
 }
 
 /* .App {

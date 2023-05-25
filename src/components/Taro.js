@@ -21,6 +21,8 @@ import {
   character09,
   character10,
   character11,
+  character12,
+  character13,
   egg,
   eggRight,
   eggLeft,
@@ -85,6 +87,10 @@ import {
   card15_02,
   card15_03,
   card15_04,
+  card16_01,
+  card16_02,
+  card16_03,
+  card16_04,
 } from '../images'
 
 import {
@@ -93,8 +99,11 @@ import {
   spin03,
   spin04,
   spin05,
+  spin06,
   characterAudio01,
+  characterAudio02,
   characterAudio03,
+  characterAudio04,
   characterAudio05,
   characterAudio06,
   characterAudio07,
@@ -102,6 +111,11 @@ import {
   characterAudio09,
   characterAudio10,
   characterAudio11,
+  characterAudio12,
+  characterAudio13,
+  characterMp401,
+  characterMp403,
+  characterMp404,
 } from '../audio'
 
 const Taro = () => {
@@ -119,16 +133,16 @@ const Taro = () => {
 
   // let [currentCard, setCurrentCard] = useState(1)
 
-  const randomSpinSf = () => {
-    return Math.floor(Math.random() * 5)
-  }
-
   const spin01sf = new Audio(spin01)
   const spin02sf = new Audio(spin02)
   const spin03sf = new Audio(spin03)
   const spin04sf = new Audio(spin04)
   const spin05sf = new Audio(spin05)
-  const sfArr = [spin01sf, spin02sf, spin03sf, spin04sf, spin05sf]
+  const spin06sf = new Audio(spin06)
+  const sfArr = [spin01sf, spin02sf, spin03sf, spin04sf, spin05sf, spin06sf]
+  const randomSpinSf = () => {
+    return Math.floor(Math.random() * sfArr.length)
+  }
   const spinSf = () => {
     sfArr[randomSpinSf()].play()
   }
@@ -136,15 +150,7 @@ const Taro = () => {
   const pants = () => {
     taro ? setTaro(false) : setTaro(true)
   }
-  // const randomCard = () => {
-  //   return Math.floor(Math.random() * 2)
-  // }
 
-  // console.log(cardArr[0])
-  // const currentCard = () => {
-  //   return cardArr[randomCard()], eggArr[randomCard()]
-  //   // console.log(cardArr[0])
-  // }
   const eggArr = [
     card01_01,
     card02_01,
@@ -161,6 +167,7 @@ const Taro = () => {
     card13_01,
     card14_01,
     card15_01,
+    card16_01,
   ]
   const eggLeftArr = [
     card01_02,
@@ -178,6 +185,7 @@ const Taro = () => {
     card13_02,
     card14_02,
     card15_02,
+    card16_02,
   ]
   const eggRightArr = [
     card01_03,
@@ -195,6 +203,7 @@ const Taro = () => {
     card13_03,
     card14_03,
     card15_03,
+    card16_03,
   ]
   const cardArr = [
     card01_04,
@@ -212,6 +221,7 @@ const Taro = () => {
     card13_04,
     card14_04,
     card15_04,
+    card16_04,
   ]
   const [numbers, setNumbers] = useState([])
   const [clicks, setClicks] = useState(0)
@@ -255,8 +265,17 @@ const Taro = () => {
     setTimeout(() => {
       setNext(1)
     }, 1000)
-    console.log('open', numbers, clicks, randomNumber)
+    // console.log('open', numbers, clicks, randomNumber)
   }
+
+  const [characterNumber, setCharacterNumber] = useState(0)
+  const [character01Ani, setCharacter01Ani] = useState('none')
+  const [character02Ani, setCharacter02Ani] = useState('none')
+  const [character03Ani, setCharacter03Ani] = useState('none')
+  const [character11Ani, setCharacter11Ani] = useState('none')
+  const characterSF01 = new Audio(characterAudio01)
+  const characterSF02 = new Audio(characterAudio02)
+  const characterSF11 = new Audio(characterAudio11)
 
   const nextCard = () => {
     setEggLeftAni('none')
@@ -265,8 +284,22 @@ const Taro = () => {
     setEggDisplay('none')
     setEggAnimation('none')
     setNext(0)
-    console.log('next', numbers, clicks, randomNumber)
+    // console.log('next', numbers, clicks, randomNumber)
 
+    setCharacterNumber(characterNumber + 1)
+    if (characterNumber === 0) {
+      setCharacter01Ani('down 3s ease-in-out forwards')
+      setTimeout(() => {
+        setCharacter01Ani('none')
+      }, 3000)
+      characterSF01.play()
+    } else if (characterNumber === 1) {
+      setCharacter11Ani('down 3s ease-in-out forwards')
+      setTimeout(() => {
+        setCharacter11Ani('none')
+      }, 3000)
+      characterSF11.play()
+    }
     // currentCard === 5 ? setCurrentCard(1) : setCurrentCard(currentCard + 1)
     // console.log(currentCard)
   }
@@ -288,7 +321,25 @@ const Taro = () => {
       )}
 
       {started && (
-        <>
+        <div className="outside">
+          <div
+            className="character11 position-absolute"
+            style={{ animation: character11Ani }}
+          >
+            <img src={character11} alt="" />
+          </div>
+          <div
+            className="character02 position-absolute"
+            style={{ animation: character02Ani }}
+          >
+            <img src={character02} alt="" />
+          </div>
+          <div
+            className="character01 position-absolute"
+            style={{ animation: character01Ani }}
+          >
+            <img src={character01} alt="" />
+          </div>
           <Button
             className="backBtn position-absolute"
             style={{ opacity: `${next}` }}
@@ -373,7 +424,7 @@ const Taro = () => {
               </Col>
             </Row>
           </Container>
-        </>
+        </div>
       )}
     </>
   )
