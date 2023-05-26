@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -91,6 +91,7 @@ import {
   card16_02,
   card16_03,
   card16_04,
+  startTaro,
 } from '../images'
 
 import {
@@ -116,6 +117,7 @@ import {
   characterMp401,
   characterMp403,
   characterMp404,
+  bgm,
 } from '../audio'
 
 const Taro = () => {
@@ -132,7 +134,14 @@ const Taro = () => {
   const [next, setNext] = useState(0)
 
   // let [currentCard, setCurrentCard] = useState(1)
-
+  const audioRef = useRef()
+  // const bgmsf = new Audio(bgm)
+  const [volume, setVolume] = useState(0.5)
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value
+    setVolume(newVolume)
+    audioRef.current.volume = newVolume
+  }
   const spin01sf = new Audio(spin01)
   const spin02sf = new Audio(spin02)
   const spin03sf = new Audio(spin03)
@@ -268,14 +277,113 @@ const Taro = () => {
     // console.log('open', numbers, clicks, randomNumber)
   }
 
-  const [characterNumber, setCharacterNumber] = useState(0)
-  const [character01Ani, setCharacter01Ani] = useState('none')
-  const [character02Ani, setCharacter02Ani] = useState('none')
-  const [character03Ani, setCharacter03Ani] = useState('none')
-  const [character11Ani, setCharacter11Ani] = useState('none')
-  const characterSF01 = new Audio(characterAudio01)
-  const characterSF02 = new Audio(characterAudio02)
-  const characterSF11 = new Audio(characterAudio11)
+  // TODO: chatGPT 救我 <3
+  // 假設你有以下的動畫和音效的數據
+  const characterData = [
+    {
+      character: character03,
+      animation: 'down-rotate 5s ease-out forwards',
+      audio: characterMp403,
+      timeout: 5000,
+    },
+    {
+      character: character01,
+      animation: 'down 3s ease-out forwards',
+      audio: characterAudio01,
+      timeout: 3000,
+    },
+    {
+      character: character02,
+      animation: 'down 3s ease-out forwards',
+      audio: characterAudio02,
+      timeout: 3000,
+    },
+    {
+      character: character03,
+      animation: 'down 4s ease-out forwards',
+      audio: characterAudio03,
+      timeout: 4000,
+    },
+    {
+      character: character04,
+      animation: 'down 3s ease-out forwards',
+      audio: characterAudio04,
+      timeout: 3000,
+    },
+    {
+      character: character05,
+      animation: 'down 5s ease-out forwards',
+      audio: characterAudio05,
+      timeout: 5000,
+    },
+    {
+      character: character06,
+      animation: 'down 3s ease-out forwards',
+      audio: characterAudio06,
+      timeout: 3000,
+    },
+    {
+      character: character07,
+      animation: 'down-rotate 7s ease-out forwards',
+      audio: characterAudio07,
+      timeout: 7000,
+    },
+    {
+      character: character08,
+      animation: 'down-rotate2 5s ease-out forwards',
+      audio: characterAudio08,
+      timeout: 5000,
+    },
+    {
+      character: character09,
+      animation: 'down-rotate 5s ease-out forwards',
+      audio: characterAudio09,
+      timeout: 5000,
+    },
+    {
+      character: character10,
+      animation: 'down-right 5s ease-out forwards',
+      audio: characterAudio10,
+      timeout: 5000,
+    },
+    {
+      character: character11,
+      animation: 'down-rotate 4s ease-out forwards',
+      audio: characterAudio11,
+      timeout: 4000,
+    },
+
+    {
+      character: character12,
+      animation: 'down-stop 3s ease-out forwards',
+      audio: characterAudio12,
+      timeout: 3000,
+    },
+
+    {
+      character: character13,
+      animation: 'down-rotate 7s ease-out forwards',
+      audio: characterAudio13,
+      timeout: 7000,
+    },
+    {
+      character: character01,
+      animation: 'down-rotate2 3s ease-out forwards',
+      audio: characterMp401,
+      timeout: 3000,
+    },
+    {
+      character: character04,
+      animation: 'down-stop 5s ease-out forwards',
+      audio: characterMp404,
+      timeout: 5000,
+    },
+  ]
+
+  // 初始狀態
+  const [currentCharacter, setCurrentCharacter] = useState(0)
+  const [animation, setAnimation] = useState('none')
+  const characterSFs = characterData.map(({ audio }) => new Audio(audio))
 
   const nextCard = () => {
     setEggLeftAni('none')
@@ -286,59 +394,70 @@ const Taro = () => {
     setNext(0)
     // console.log('next', numbers, clicks, randomNumber)
 
-    setCharacterNumber(characterNumber + 1)
-    if (characterNumber === 0) {
-      setCharacter01Ani('down 3s ease-in-out forwards')
+    // 更新當前角色
+    setCurrentCharacter((currentCharacter) => {
+      const nextCharacter = (currentCharacter + 1) % characterData.length // 可以循環
+      // 設定動畫和音效
+      setAnimation(characterData[nextCharacter].animation)
       setTimeout(() => {
-        setCharacter01Ani('none')
-      }, 3000)
-      characterSF01.play()
-    } else if (characterNumber === 1) {
-      setCharacter11Ani('down 3s ease-in-out forwards')
-      setTimeout(() => {
-        setCharacter11Ani('none')
-      }, 3000)
-      characterSF11.play()
-    }
+        setAnimation('none')
+      }, characterData[nextCharacter].timeout)
+      characterSFs[nextCharacter].play()
+
+      return nextCharacter
+    })
     // currentCard === 5 ? setCurrentCard(1) : setCurrentCard(currentCard + 1)
     // console.log(currentCard)
   }
 
   return (
     <>
+      {' '}
+      <audio ref={audioRef} src={bgm} />
       {started || (
         <>
           <Container className="d-flex justify-content-center align-items-center">
-            <Button
+            <div
+              className="d-flex justify-content-center"
+              style={{ cursor: 'pointer' }}
               onClick={() => {
                 setStarted(true)
+                audioRef.current.loop = true
+                audioRef.current.play()
               }}
             >
-              start
-            </Button>
+              <img className="w-50" src={startTaro} alt="" />
+            </div>
           </Container>
         </>
       )}
-
       {started && (
         <div className="outside">
-          <div
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+          />
+          {/* <div
             className="character11 position-absolute"
-            style={{ animation: character11Ani }}
+            style={{ animation: animation }}
           >
             <img src={character11} alt="" />
           </div>
           <div
             className="character02 position-absolute"
-            style={{ animation: character02Ani }}
+            style={{ animation: animation }}
           >
             <img src={character02} alt="" />
-          </div>
+          </div> */}
           <div
             className="character01 position-absolute"
-            style={{ animation: character01Ani }}
+            style={{ animation: animation }}
           >
-            <img src={character01} alt="" />
+            <img src={characterData[currentCharacter].character} alt="" />
           </div>
           <Button
             className="backBtn position-absolute"

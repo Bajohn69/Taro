@@ -13,9 +13,9 @@ import character07 from './character07.png'
 import character08 from './character08.png'
 import character09 from './character09.png'
 import character10 from './character10.png'
-import character11 from './character11.gif'
+import character11 from './character11.jpg'
 import character12 from './character12.gif'
-import character13 from './character13.jpg'
+import character13 from './character13.gif'
 
 import egg from './egg.png'
 import eggLeft from './eggLeft.png'
@@ -97,6 +97,8 @@ import card16_01 from './cards/16_01.png'
 import card16_02 from './cards/16_02.png'
 import card16_03 from './cards/16_03.png'
 import card16_04 from './cards/16_04.png'
+
+import startTaro from './start.png'
 
 export {
   taro_body,
@@ -184,4 +186,5 @@ export {
   card16_02,
   card16_03,
   card16_04,
+  startTaro,
 }

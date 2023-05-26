@@ -22,6 +22,7 @@ import characterAudio13 from './character13.m4a'
 import characterMp401 from './character01.mp4'
 import characterMp403 from './character03.mp4'
 import characterMp404 from './character04.mp4'
+import bgm from './bgm.mp3'
 
 export {
   spin01,
@@ -46,4 +47,5 @@ export {
   characterMp401,
   characterMp403,
   characterMp404,
+  bgm,
 }
