@@ -255,7 +255,7 @@ const Taro = () => {
     } else {
       setClicks(clicks + 1)
     }
-    console.log('QQQQ', numbers, clicks, randomNumber)
+    // console.log('QQQQ', numbers, clicks, randomNumber)
 
     setSpinAnimation('rotate 0.8s forwards')
     setEggDisplay('block')
